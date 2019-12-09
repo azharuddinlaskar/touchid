@@ -10,4 +10,38 @@
 
 @implementation TouchAuth
 
+- (void)authenticateWithTouch {
+    
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error = nil;
+    
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        // Authenticate User
+        
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                localizedReason:@"Are you the device owner?"
+                          reply:^(BOOL success, NSError *error) {
+                              
+            dispatch_async(dispatch_get_main_queue(), ^{
+               
+                if (error) {
+                    //@"There was a problem verifying your identity."
+                    
+                    return;
+                }
+                
+                if (success) {
+                    //@"You are the device owner!"
+                    
+                } else {
+                    //@"You are not the device owner."
+                }
+            });
+        }];
+    }
+    else {
+        //@"Your device cannot authenticate using TouchID."
+    }
+}
+
 @end

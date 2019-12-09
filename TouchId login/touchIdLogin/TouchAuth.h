@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface TouchAuth : NSObject
+
+- (void)authenticateWithTouch;
 
 @end
